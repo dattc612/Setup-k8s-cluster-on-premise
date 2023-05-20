@@ -1,0 +1,2 @@
+# - include_tasks: gitlab_present.yaml
+- include_tasks: gitlab_deployed.yaml

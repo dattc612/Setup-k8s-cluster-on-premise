@@ -1,0 +1,86 @@
+postgresql:
+  install: false
+redis:
+  install: false
+nginx-ingress:
+  enabled: false
+certmanager:
+  global:
+    leaderElection:
+      namespace: {{ tenant_name }}-service
+
+global:
+  kas: 
+    enabled: false
+  hosts:
+    domain: dev.com
+  pdb:
+    apiVersion: "policy/v1"
+  hpa:
+    apiVersion: "autoscaling/v2"
+  ingress:
+    configureCertmanager: false
+    class: nginx
+    path: /
+  psql:
+    host: postgresql.{{ tenant_name }}-datastore
+    port: 5432
+    database: gitlabhq_production
+    username: gitlab
+    preparedStatements: false
+    databaseTasks: true
+    password:
+      useSecret: true
+      secret: gitlab-postgres
+      key: psql-password
+  redis:
+    password:
+      enabled: true
+      secret: redis
+      key: redis-password
+    host: redis-master.{{ tenant_name }}-datastore
+    port: 6379
+    username: default
+gitlab:
+  toolbox:
+    replicas: 1
+    antiAffinityLabels:
+      matchLabels:
+        app: gitaly
+  webservice:
+    enabled: true
+    helmTests:
+      enabled: false
+    minReplicas: 1
+    maxReplicas: 1
+  gitaly:
+    persistence:
+      storageClass: {{ tenant_name }}-nfs
+      size: 15Gi
+  kas:
+    maxReplicas: 1
+    minReplicas: 1
+  gitlab-shell:
+    maxReplicas: 1
+    minReplicas: 1
+  sidekiq:
+    minReplicas: 1
+    maxReplicas: 1
+      
+minio:
+  persistence:
+    enabled: true
+    storageClass: {{ tenant_name }}-nfs
+    accessMode: ReadWriteOnce
+    size: 10Gi
+prometheus:
+  server:
+    persistentVolume:
+      storageClass: {{ tenant_name }}-nfs
+registry:
+  hpa:
+    minReplicas: 1
+    maxReplicas: 1
+
+gitlab-runner:
+  gitlabUrl: http://gitlab-webservice-default:8080/

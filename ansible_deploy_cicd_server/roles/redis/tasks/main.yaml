@@ -1,0 +1,2 @@
+- include_tasks: redis_deployed.yaml
+- include_tasks: secret_applied.yaml

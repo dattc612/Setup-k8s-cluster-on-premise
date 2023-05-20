@@ -1,0 +1,9 @@
+fullnameOverride: redis
+global:
+  storageClass: "{{tenant_name }}-nfs"
+  redis:
+    password: 612000
+
+auth:
+  enabled: true
+  existingSecret: false

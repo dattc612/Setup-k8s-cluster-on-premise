@@ -1,0 +1,2 @@
+# - include_tasks: enabled_ipvl_mode.yaml
+- include_tasks: metallb_deployed.yaml

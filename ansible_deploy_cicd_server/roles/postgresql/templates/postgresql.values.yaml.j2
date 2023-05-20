@@ -1,0 +1,19 @@
+fullnameOverride: postgresql
+global:
+  storageClass: "{{ tenant_name }}-nfs"
+  postgresql:
+    auth:
+      postgresPassword: "postgres"
+      username: "admin"
+      password: "admin"
+      database: "admindb"
+
+primary:
+  initdb:
+    user: postgres
+    password: postgres
+    scripts: 
+      init.sql: |
+        CREATE USER gitlab WITH SUPERUSER PASSWORD 'gitlab';
+        CREATE DATABASE gitlabhq_production ;
+        GRANT ALL PRIVILEGES ON DATABASE gitlabhq_production TO gitlab;

@@ -1,0 +1,10 @@
+- name: Template value file to /tmp/deployment-values/jenkins.values.yaml
+  template:
+    src:  templates/jenkins.values.yaml.j2
+    dest: /tmp/jenkins.values.yaml
+    force: true
+
+- name: Deployed jenkins
+  shell: |
+    helm template charts/jenkins -f /tmp/jenkins.values.yaml -n {{ tenant_name }}-service |
+    kubectl apply -f - -n {{ tenant_name }}-service

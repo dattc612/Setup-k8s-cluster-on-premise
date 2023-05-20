@@ -1,0 +1,10 @@
+- name: Template value file
+  template:
+    src:  templates/nfs-subdir-external-provisioner.values.yaml.j2
+    dest: /tmp/nfs-subdir-external-provisioner.values.yaml
+    force: true
+
+- name: Deployed nfs-subdir-external-provisioner
+  shell: |
+    helm template charts/nfs-subdir-external-provisioner -f /tmp/nfs-subdir-external-provisioner.values.yaml -n {{ tenant_name }}-datastore |
+    kubectl apply -f - -n {{ tenant_name }}-datastore

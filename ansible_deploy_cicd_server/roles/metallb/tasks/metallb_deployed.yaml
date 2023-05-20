@@ -1,0 +1,23 @@
+- name: Template value file
+  template:
+    src:  templates/metallb.values.yaml.j2
+    dest: /tmp/metallb.values.yaml
+    force: true
+
+- name: Template config file
+  template:
+    src:  templates/config.yaml.j2
+    dest: /tmp/config.yaml
+    force: true
+
+- name: Metallb Deployed
+  shell: |
+    helm template ./charts/metallb -f /tmp/metallb.values.yaml -n common-service |
+    kubectl apply -f - -n common-service
+
+- name: Waiting for Metallb to complete
+  shell: |
+    kubectl wait pods -n common-service -l app.kubernetes.io/name=metallb  --for condition=Ready --timeout=90s
+
+- name: Config applied
+  shell: kubectl apply -f /tmp/config.yaml -n common-service

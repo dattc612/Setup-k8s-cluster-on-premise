@@ -1,0 +1,10 @@
+- name: Template value file
+  template:
+    src:  templates/nginx-ingress-controller.values.j2
+    dest: /tmp/nginx-ingress-controller.values.yaml
+    force: true
+
+- name: Deployed Nginx
+  shell: |
+    helm template charts/ingress-nginx -f /tmp/nginx-ingress-controller.values.yaml -n common-service |
+    kubectl apply -f - -n common-service

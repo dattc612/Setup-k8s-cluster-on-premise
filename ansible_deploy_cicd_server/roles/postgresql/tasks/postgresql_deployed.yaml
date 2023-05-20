@@ -1,0 +1,10 @@
+- name: Template value file
+  template:
+    src:  templates/postgresql.values.yaml.j2
+    dest: /tmp/postgresql.values.yaml
+    force: true
+
+- name: Deployed postgresql
+  shell: |
+    helm template charts/postgresql -f /tmp/postgresql.values.yaml -n {{ tenant_name }}-datastore |
+    kubectl apply -f - -n {{ tenant_name }}-datastore

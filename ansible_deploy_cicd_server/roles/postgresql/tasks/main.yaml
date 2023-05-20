@@ -1,0 +1,2 @@
+- include_tasks: postgresql_deployed.yaml
+- include_tasks: secret_applied.yaml

@@ -1,0 +1,14 @@
+- name: Template value file
+  template:
+    src:  templates/create-namespaces.yaml.j2
+    dest: /tmp/create-namespaces.yaml
+    force: true
+- name: Template value file
+  template:
+    src:  templates/create-networkpolicy.yaml.j2
+    dest: /tmp/create-networkpolicy.yaml
+    force: true
+
+- name: Apply network policy
+  shell: |
+    kubectl apply -f /tmp/create-networkpolicy.yaml -f /tmp/create-namespaces.yaml

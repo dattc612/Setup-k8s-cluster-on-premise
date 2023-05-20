@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: {{ tenant_name }}-service
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: {{ tenant_name }}-datastore
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: common-service  

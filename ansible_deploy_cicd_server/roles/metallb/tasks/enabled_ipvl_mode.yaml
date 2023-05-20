@@ -1,0 +1,7 @@
+- name: Enabled strict ARP mode
+  shell: |
+    kubectl get configmap kube-proxy -n kube-system -o yaml | \
+    sed -e "s/strictARP: false/strictARP: true/" | \
+    kubectl apply -f - -n kube-system
+- name: Make sure the configuration is applied
+  shell: kubectl delete pod -l k8s-app=kube-proxy -n kube-system

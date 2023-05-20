@@ -1,0 +1,10 @@
+- name: Template value file
+  template:
+    src:  templates/redis.values.yaml.j2
+    dest: /tmp/redis.values.yaml
+    force: true
+
+- name: Deployed Redis
+  shell: |
+    helm template charts/redis -f /tmp/redis.values.yaml -n {{ tenant_name }}-datastore |
+    kubectl apply -f - -n {{ tenant_name }}-datastore

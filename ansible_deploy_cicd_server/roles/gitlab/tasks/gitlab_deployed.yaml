@@ -1,0 +1,10 @@
+- name: Template value file
+  template:
+    src:  templates/gitlab.values.yaml.j2
+    dest: /tmp/gitlab.values.yaml
+    force: true
+
+- name: Deployed gitlab
+  shell: helm upgrade --install -f /tmp/gitlab.values.yaml  gitlab ./charts/gitlab -n {{ tenant_name }}-service
+    # helm template --release-name gitlab ./charts/gitlab -f /tmp/gitlab.values.yaml -n {{ tenant_name }}-service |
+    # kubectl delete -f - -n {{ tenant_name }}-service

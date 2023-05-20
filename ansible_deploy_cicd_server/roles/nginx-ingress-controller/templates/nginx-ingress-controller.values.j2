@@ -1,0 +1,16 @@
+fullnameOverride: nginx-ingress
+controller:
+  admissionWebhooks:
+    enabled: false
+  service:
+    type: LoadBalancer
+    nodePorts:
+      http: 32080
+      https: 32443
+      tcp:
+        8080: 32808
+  ingressClassResource:
+    default: true
+  config:
+    use-forwarded-headers: true
+    forwarded-for-header: X-Forwarded-For

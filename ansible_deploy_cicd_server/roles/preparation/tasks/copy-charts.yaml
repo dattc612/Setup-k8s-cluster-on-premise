@@ -1,0 +1,12 @@
+- name: copy chart forder
+  copy:
+    src: "charts/{{ item }}/"
+    dest: "charts/{{ item }}/"
+  loop:
+    - postgresql
+    - redis
+    - gitlab
+    - ingress-nginx
+    - metallb
+    - nfs-subdir-external-provisioner
+    - jenkins
