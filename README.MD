@@ -18,7 +18,21 @@ Or use local machine. [More information](https://docs.ansible.com/ansible/latest
 
 # Run ansible-playbook to initialize the cluster
 ```shell
+cd ansible_setup_env
 ansible-playbook -i inventory.yaml playbook.yaml -v
 ```
 
+# Deploy gitlab and jenkins
+
+## Note 
+  
+Remove the cached key for 192.168.1.11 on the local machine (not required)
+```
+ssh-keygen -R 192.168.1.11
+```
+
+Add this host's fingerprint to your known_hosts file to manage. Connect ssh manually for the first time
+```
+ssh vagrant@192.168.1.11 
+```
 
