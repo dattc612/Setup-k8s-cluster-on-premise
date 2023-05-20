@@ -1,0 +1,17 @@
+- name: Install package nfs-kernel-server
+  shell: | 
+    sudo apt install nfs-kernel-server -y
+
+- name: Print status
+  shell: sudo systemctl status nfs-kernel-server.service
+
+- name: get home path
+  shell: pwd
+  register: home_path
+- name: Create nfs server
+  shell: mkdir -p {{ home_path.stdout }}/nfs-share
+
+- name: Export share folder
+  shell: |
+    echo "{{ home_path.stdout }}/nfs-share *(rw,sync,fsid=0,no_subtree_check,no_root_squash)" | tee -a /etc/exports
+    sudo exportfs -a

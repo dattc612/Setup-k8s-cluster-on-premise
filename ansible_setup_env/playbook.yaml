@@ -1,0 +1,6 @@
+- name: setup evironment
+  hosts: vm01
+  roles:
+    - preparation
+    - init_cluster
+    - nfs-server # for persistent volumes

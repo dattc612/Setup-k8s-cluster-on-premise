@@ -1,0 +1,17 @@
+- name: Install vagrant 
+  shell: |
+    wget -O- https://apt.releases.hashicorp.com/gpg | gpg --dearmor | sudo tee /usr/share/keyrings/hashicorp-archive-keyring.gpg
+    echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
+    sudo apt install vagrant -y
+
+- name: Install VirtualBox
+  block:
+    - name: get lsb_release
+      shell: lsb_release -cs
+      register: lsb_release
+    - name: modify etc/apt/sources.list
+      shell: |
+        echo "deb [arch=amd64 signed-by=/usr/share/keyrings/oracle-virtualbox-2016.gpg] https://download.virtualbox.org/virtualbox/debian {{ lsb_release.stdout }} contrib" | sudo tee -a /etc/apt/sources.list
+        sudo wget -O- https://www.virtualbox.org/download/oracle_vbox_2016.asc | sudo gpg --dearmor --yes --output /usr/share/keyrings/oracle-virtualbox-2016.gpg
+        sudo apt-get update
+        sudo apt-get install virtualbox-6.1 -y
