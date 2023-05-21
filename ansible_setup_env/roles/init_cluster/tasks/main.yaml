@@ -1,16 +1,16 @@
 - name: copy requirement file
   copy:
-    src: vagrant-kubeadm/
-    dest: vagrant-kubeadm/
+    src: vagrant-kubeadm-kubernetes/
+    dest: vagrant-kubeadm-kubernetes/
 
 - name: install k8s cluster
   shell: |
     sudo mkdir -p /etc/vbox/
     echo "* 0.0.0.0/0 ::/0" | sudo tee -a /etc/vbox/networks.conf
-    cd vagrant-kubeadm && vagrant up
+    cd vagrant-kubeadm-kubernetes && vagrant up
   
 - name: Set Kubeconfig file variable
   shell: |
-    cd vagrant-kubeadm
+    cd vagrant-kubeadm-kubernetes
     cd configs
     export KUBECONFIG=$(pwd)/config
