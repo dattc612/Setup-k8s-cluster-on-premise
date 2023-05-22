@@ -36,7 +36,23 @@ Add this host's fingerprint to your known_hosts file to manage. Connect ssh manu
 ssh vagrant@192.168.1.11 
 ```
 
-## Run
+## Deploy
 ```shell
 ansible-playbook -i inventory.yaml playbook.yaml
+```
+
+## Add ip 192.168.1.11 into hosts with DNS name jenkins.dev.com and gitlab.dev.com  
+```text
+192.168.1.11	jenkins.dev.com
+192.168.1.11 	gitlab.dev.com
+```
+
+## For the first login
+```yaml
+  gitlab:
+    user: root
+    password: <get from gitlab-gitlab-initial-root-password secret>
+  jenkins: 
+    user: admin
+    password: <get from jenkins secret>
 ```

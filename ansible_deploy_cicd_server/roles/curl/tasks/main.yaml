@@ -1,0 +1,23 @@
+- name: check curl pod is available
+  shell: kubectl get pods  -l app=curl -n {{ tenant_name }}-datastore --ignore-not-found=true
+  register: curl_check
+
+- name: "curl deployed"
+  block:
+    - name: template
+      template:
+        src: curl.deployment.yaml.j2
+        dest: /tmp/curl.deployment.yaml
+        force: true
+    - name: deployment applied
+      shell: kubectl apply -f /tmp/curl.deployment.yaml -n {{ tenant_name }}-datastore
+  when: curl_check.stdout == ''
+
+- name: Waiting for curl pod
+  shell: kubectl get pods  -l app=curl -n {{ tenant_name }}-datastore  -ojsonpath="{.items[0].status.containerStatuses[?(@.name=='curl')].ready}"
+  register: result
+  until: "{{ result.stdout == 'true' }}"
+  retries: 50
+  delay: 10
+  when: curl_check.stdout == ''
+  

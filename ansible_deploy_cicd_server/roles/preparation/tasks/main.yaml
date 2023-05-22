@@ -1,2 +1,2 @@
-# - include_tasks: copy-charts.yaml
+- include_tasks: copy-charts.yaml
 - include_tasks: create-namespace-and-policy.yaml
