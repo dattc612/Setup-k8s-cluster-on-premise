@@ -5,7 +5,7 @@ virtualmachines:
       ansible_host: 192.168.1.11
       ansible_port: 22
       ansible_user: vagrant
-      ansible_password: vagrant
+      ansible_password: 612000
       ansible_become: yes 
       ansible_become_method: sudo
-      ansible_become_pass: vagrant
+      ansible_become_pass: 612000

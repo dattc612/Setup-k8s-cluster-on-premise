@@ -36,3 +36,7 @@ Add this host's fingerprint to your known_hosts file to manage. Connect ssh manu
 ssh vagrant@192.168.1.11 
 ```
 
+## Run
+```shell
+ansible-playbook -i inventory.yaml playbook.yaml
+```

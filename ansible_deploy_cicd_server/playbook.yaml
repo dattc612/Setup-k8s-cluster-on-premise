@@ -2,12 +2,12 @@
   hosts: vm01
   vars_files: group_vars/main.yaml
   roles:
-    - preparation
-    - nfs-subdir-external-provisioner
-    - postgresql
-    - redis
-    - nginx-ingress-controller
+    # - preparation
+    # - nfs-subdir-external-provisioner
+    # - postgresql
+    # - redis
+    # - nginx-ingress-controller
+    # - jenkins
+    # - gitlab
     - metallb 
-    - jenkins
-    - nginx-ingress-controller
-    - gitlab
+    # - curl
